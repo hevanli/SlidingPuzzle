@@ -18,16 +18,18 @@ public class GraphicalView extends JFrame implements ActionListener
     private final int sidePadding = 10;
     private BufferedImage img;
     private Icon imgs[];
+    private boolean isImageGame;
 	
-	public GraphicalView(Puzzle p)
+	public GraphicalView(Puzzle p, boolean isImageGame)
 	{
         // init
 		super("Sliding Puzzle");
 		this.p = p;
+        this.isImageGame = isImageGame;
 		puzzleSize = p.getSize();
 
         try
-        { img = ImageIO.read(new File("./raccoon.jpeg")); } 
+        { img = ImageIO.read(new File("./image.jpeg")); } 
         catch (IOException e) 
         { e.printStackTrace(); return; }
 
@@ -137,13 +139,17 @@ public class GraphicalView extends JFrame implements ActionListener
 			{
 				if(p.getGrid()[r][c] == 0)
                 {
-                    //buttons[r][c].setIcon(null);
-                    buttons[r][c].setText(" ");
+                    if (isImageGame)
+                        buttons[r][c].setIcon(null);
+                    else
+                        buttons[r][c].setText(" ");
                 }
 				else
                 {
-                    //buttons[r][c].setIcon(imgs[p.getGrid()[r][c]]);
-                    buttons[r][c].setText(""+p.getGrid()[r][c]);
+                    if (isImageGame)
+                        buttons[r][c].setIcon(imgs[p.getGrid()[r][c]]);
+                    else
+                        buttons[r][c].setText(""+p.getGrid()[r][c]);
                 }
 			}
 		}

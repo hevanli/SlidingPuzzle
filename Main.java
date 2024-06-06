@@ -15,6 +15,13 @@ public class Main {
 
 		System.out.print("Would you like to play the <Console> or <Graphic> version? >> ");
 		String version = scanner.nextLine();
+
+        while (!version.equals("Console") && !version.equals("Graphic"))
+        {
+            System.out.print("Please choose either <Console> or <Graphic> >> ");
+            version = scanner.nextLine();
+        }
+
 		if (version.equals("Console")) // Console Version
 		{
             Puzzle p = createPuzzle(scanner);
@@ -46,10 +53,17 @@ public class Main {
 		  	else
 				System.out.println("QUITTER");
 		}
-		else // GUI Version
+		else if (version.equals("Graphic"))// GUI Version
 		{
+            System.out.print("<Number> or <Image> game? >> ");
+            String gameMode = scanner.nextLine();
+            while (!gameMode.equals("Number") && !gameMode.equals("Image"))
+            {
+                System.out.print("Please choose either <Number> or <Image> >> ");
+                gameMode = scanner.nextLine();
+            }
 			Puzzle p = createPuzzle(scanner);
-			GraphicalView gv = new GraphicalView(p);
+			GraphicalView gv = new GraphicalView(p, gameMode.equals("Number") ? false : true);
 		}
 		scanner.close();
   	}
